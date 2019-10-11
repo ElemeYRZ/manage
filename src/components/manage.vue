@@ -8,9 +8,12 @@
           text-color="#bfcbd9"
           active-text-color="#ffd04b"
           router
+          :default-active="defaultActive"
         >
-          <el-menu-item style="color: #20a0ff;" index="manage">
-            <i class="el-icon-menu" style="color: #20a0ff;"></i>首页
+        <!-- default-active:所传值为菜单item的index值-->
+        <!-- router:是否使用vue-router模式，启用该模式时会在激活导航时以index作为路由跳转 -->
+          <el-menu-item index="manage">
+            <i class="el-icon-menu"></i>首页
           </el-menu-item>
           <el-submenu index="1">
             <template slot="title">
@@ -66,16 +69,39 @@
 
 <script>
 export default {
-  defaultActive: function() {
-    console.log('111',this.$route.path);
-    return this.$route.path.replace("/", "");
+  computed: {
+    defaultActive: function() {
+      console.log("111", this.$route.path);
+      var path =  this.$route.path;
+      path = path.replace("/","");
+      console.log('222',path);
+      return this.$route.path.replace("/", "");
+    }
   }
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
+// 在修改elementui的样式时，若存在无法修改的情况，则去掉scoped。
 @import "../style/mixin";
-.el-submenu .el-menu {
-  background-color: #1f2d3d;
+// 子菜单的背景色
+.el-submenu .el-menu-item{
+  background-color: #1f2d3d !important;
+  min-width: 0;
 }
+// 侧边导航栏点击选中样式
+.el-menu-item.is-active {
+  color: #409eff !important;
+}
+// 侧边导航栏hover背景色
+.el-menu-item:focus,.el-menu-item:hover{
+  background-color: #48576a !important;
+}
+.el-submenu .el-submenu__title:hover{
+  background-color: #48576a !important;
+}
+.el-submenu__title i{
+  color: #bfcbd9;//修改图标的颜色
+}
+
 </style>

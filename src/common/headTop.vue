@@ -4,7 +4,7 @@
       <el-breadcrumb-item :to="{ path: '/manage' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-dropdown  menu-align='start' >
+    <el-dropdown @command="handleCommand"  menu-align='start' >
 			<img src="../assets/avatar.jpg" class="avator"/>
 			<el-dropdown-menu slot="dropdown">
 				<el-dropdown-item command="home">首页</el-dropdown-item>
@@ -23,7 +23,21 @@ export default {
 	},
 	created() {
 		console.log('meta',this.$route.meta);
-	},
+  },
+  methods: {
+    async handleCommand(command){
+      console.log('command',command);
+      if(command == 'home'){
+        this.$router.push('/manage');
+      }else{
+        this.$message({
+          type:'success',
+          message:'退出成功'
+        })
+        this.$router.push('/')
+      }
+    }
+  },
 };
 </script>
 

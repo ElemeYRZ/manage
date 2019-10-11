@@ -18,17 +18,25 @@ import "echarts/lib/component/tooltip";
 export default {
   mounted() {
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById("main"));
-    // 绘制图表
-    myChart.setOption({
-      colors:["#5793f3", "#675bba", "#d14a61"],
-      title: {
-        text: "走势图"
-      },
-      tooltip: {
-         
-      },
-      toolbox: {
+    this.myChart = echarts.init(document.getElementById("main"));
+    this.initData();
+  },
+  props: ["sevenDay", "sevenDate"],
+  methods: {
+    initData() {
+      const color = ["#5793f3", "#675bba", "#d14a61"];
+      const option = {
+        color: color,
+        title: {
+          text: "走势图"
+        },
+        tooltip: {
+          trigger: "axis"
+        },
+        legend: {
+          data: ["新注册用户", "新增订单", "新增管理员"]
+        },
+        toolbox: {
           show: true,
           feature: {
             dataZoom: {
@@ -38,19 +46,16 @@ export default {
             magicType: { type: ["bar", "line"] },
             restore: {}
           }
-      },
-      legend: {
-           data: ["新注册用户", "新增订单", "新增管理员"]
-      },
-      xAxis: {
-        data: ["2019-8-30", "2019-8-31", "2019-9-1", "2019-9-2", "2019-9-3", "2019-9-4"]
-      },
-      yAxis: [
-         {
+        },
+        xAxis: {
+          data: this.sevenDay
+        },
+        yAxis: [
+          {
             type: "value",
             name: "用户",
             min: 0,
-            max: 100,
+            max: 200,
             position: "left",
             axisLine: {
               lineStyle: {
@@ -65,7 +70,7 @@ export default {
             type: "value",
             name: "订单",
             min: 0,
-            max: 100,
+            max: 200,
             position: "right",
             axisLine: {
               lineStyle: {
@@ -76,33 +81,62 @@ export default {
               formatter: "{value}"
             }
           }
-      ],
-      series: [
-        {
-          name: "新注册用户",
-          type: "line",
-          data: [5, 20, 36, 10, 10, 20]
-        },
-        {
-          name: "新增订单",
-          type: "bar",
-          data: [10, 30, 10, 50, 60, 40]
-        },
-        {
-          name: "新增管理员",
-          type: "bar",
-          data: [2, 10, 15, 8, 5, 4]
-        }
-      ]
-    });
+        ],
+        series: [
+          {
+            name: "新注册用户",
+            type: "line",
+            data: this.sevenDate[0],
+            markPoint: {
+              data: [
+                { type: "max", name: "最大值" },
+                { type: "min", name: "最小值" }
+              ]
+            }
+          },
+          {
+            name: "新增订单",
+            type: "line",
+            data: this.sevenDate[1],
+            markPoint: {
+              data: [
+                { type: "max", name: "最大值" },
+                { type: "min", name: "最小值" }
+              ]
+            }
+          },
+          {
+            name: "新增管理员",
+            type: "bar",
+            data: this.sevenDate[2],
+            markPoint: {
+              data: [
+                { type: "max", name: "最大值" },
+                { type: "min", name: "最小值" }
+              ]
+            }
+          }
+        ]
+      };
+      // 绘制图表
+      this.myChart.setOption(option);
+    }
+  },
+  watch: {
+    sevenDate: function() {
+      this.initData();
+    },
+    sevenDay: function() {
+      this.initData();
+    }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.line{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
+.line {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
 </style>

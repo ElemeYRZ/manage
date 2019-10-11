@@ -16,12 +16,17 @@
             <el-button @click="submitForm('loginForm')" type="primary" class="submit_btn">登录</el-button>
           </el-form-item>
         </el-form>
+        <p class="tip">温馨提示：</p>
+        <p class="tip">未登录过的新用户，自动注册</p>
+        <p class="tip">注册过的用户可凭账号密码登录</p>
       </section>
     </transition>
   </div>
 </template>
 
 <script>
+import { login, getAdminInfo } from "@/api/getData";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -40,16 +45,35 @@ export default {
   },
   mounted() {
     this.showLogin = true;
+    if (!this.adminInfo.id) {
+      this.getAdminData();
+    }
+  },
+  computed: {
+    ...mapState(["adminInfo"])
   },
   methods: {
+    ...mapActions(["getAdminData"]),
     async submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          this.$message({
-            type: "success",
-            message: "登录成功"
+          const res = await login({
+            user_name: this.loginForm.username,
+            password: this.loginForm.password
           });
-          this.$router.push("manage");
+          console.log("登录", res);
+          if (res.status == 1) {
+            this.$message({
+              type: "success",
+              message: "登录成功"
+            });
+            this.$router.push("manage");
+          } else {
+            this.$message({
+              type: "error",
+              message: res.message
+            });
+          }
         } else {
           this.$notify.error({
             title: "错误",
@@ -99,5 +123,12 @@ export default {
 .fade-leave-active {
   transform: translate3d(0, -50px, 0);
   opacity: 0;
+}
+.tip {
+  font-size: 12px;
+  color: red;
+}
+.el-button{
+  padding: 9px 20px;
 }
 </style>
