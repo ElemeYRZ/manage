@@ -287,6 +287,7 @@ export default {
       }
       return isRightType && isLt2M;
     },
+    // 更新商铺信息
     async updateShop(){
       this.dialogFormVisible = false;
       try{
@@ -310,7 +311,14 @@ export default {
         console.log(err)
       }
 
+    },
+    // 添加食品
+    addFood(index,row){
+      console.log('index',index);
+      console.log('row',row);
+      this.$router.push({path:'addGoods',query:{restaurant_id:row.id}});
     }
+
   }
 };
 </script>

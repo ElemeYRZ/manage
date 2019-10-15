@@ -19,6 +19,8 @@ import {
   adminCount
 } from "@/api/getData";
 
+import utils from '@/config/utils';
+
 export default {
   data() {
     return {
@@ -39,6 +41,28 @@ export default {
   created() {
     var httpUrl = global.httpUrl;
     console.log("httpUrl", httpUrl);
+    // let url = httpUrl + '/parent/index/';
+    // let data = {
+    //   uid:66,
+    //   page:1,
+    //   leap:1
+    // }
+    // utils.httpRequest(url,data).then(res=>{
+    //   console.log('rrrrrrrr',res);
+    // })
+
+    // let url = httpUrl + '/teacher/new_media/';
+    // let aa = [{desc:'11',url:'https://img.weixin-qq.com.cn/smy/2019/1571046212047545.png'}];
+    // let data = {
+    //   tid:8,
+    //   type:1,
+    //   title:'1',
+    //   medias:JSON.stringify(aa)
+    // };
+    // utils.httpRequest(url,data,'POST').then(res=>{
+    //   console.log('rrrr',res);
+    // })
+
 
     //get
     // this.$axios.get(httpUrl + '/parent/index/',{

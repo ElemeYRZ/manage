@@ -2,11 +2,11 @@
   <div class="fillcontain">
     <head-top></head-top>
     <div class="table_container">
-      <el-table :data="tableData" style="width: 100%" highlight-current-row>
-        <el-table-column type="index" width="100"></el-table-column>
-        <el-table-column property="registe_time" label="注册日期" width="220"></el-table-column>
-        <el-table-column property="username" label="用户姓名" width="220"></el-table-column>
-        <el-table-column property="city" label="注册地址"></el-table-column>
+      <el-table :data="tableData" style="width: 100%" highlight-current-row > 
+        <el-table-column type="index" width="100" align="center"></el-table-column>
+        <el-table-column property="registe_time" label="注册日期" width="220" align="center"></el-table-column>
+        <el-table-column property="username" label="用户姓名" width="220" align="center"></el-table-column>
+        <el-table-column property="city" label="注册地址" align="center"></el-table-column>
       </el-table>
     </div>
     <el-pagination

@@ -20,7 +20,7 @@ Vue.use(VueQuillEditor)
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
-global.httpUrl = 'https://www.weixin-qq.com.cn';
+global.httpUrl = 'https://www.dianchexia.com';
 
 /* eslint-disable no-new */
 new Vue({

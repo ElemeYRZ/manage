@@ -146,9 +146,14 @@
 
 <script>
 import headTop from "../common/headTop";
+import { getCategory, addCategory, addFood } from "@/api/getData";
+import { baseUrl, baseImgPath } from "@/config/env";
 export default {
   data() {
     return {
+      baseUrl,
+      baseImgPath,
+      restaurant_id: "",
       categoryForm: {
         categoryList: [
           { value: "猪肉", label: "猪肉" },
@@ -196,24 +201,32 @@ export default {
     headTop
   },
   created() {
-    this.$msgbox({
-      title: "消息",
-      message: "添加食品需要先添加商铺,现在就去添加商铺吗？",
-      showCancelButton: true,
-      confirmButtonText: "确定",
-      cancelButtonText: "取消",
-      beforeClose: (action, instace, done) => {
-        if (action == "confirm") {
-          done();
-        } else {
-          this.$message({
-            type: "info",
-            message: "取消"
-          });
-          done();
+    console.log("----", this.$route);
+    if (this.$route.query.restaurant_id) {
+      this.restaurant_id = this.$route.query.restaurant_id;
+    } else {
+      this.restaurant_id = Math.ceil(Math.random()*10);
+      console.log('res id',Math.ceil(Math.random()*10));
+      this.$msgbox({
+        title: "消息",
+        message: "添加食品需要先选择商铺,现在就去选择商铺吗？",
+        showCancelButton: true,
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        beforeClose: (action, instace, done) => {
+          if (action == "confirm") {
+            this.$router.push('shopList');
+            done();
+          } else {
+            this.$message({
+              type: "info",
+              message: "取消"
+            });
+            done();
+          }
         }
-      }
-    });
+      });
+    }
   },
   methods: {
     // 显示或隐藏添加食品分类区域
