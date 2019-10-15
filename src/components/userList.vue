@@ -2,7 +2,7 @@
   <div class="fillcontain">
     <head-top></head-top>
     <div class="table_container">
-      <el-table :data="tableData" style="width: 100%" highlight-current-row > 
+      <el-table :data="tableData" style="width: 100%" highlight-current-row border > 
         <el-table-column type="index" width="100" align="center"></el-table-column>
         <el-table-column property="registe_time" label="注册日期" width="220" align="center"></el-table-column>
         <el-table-column property="username" label="用户姓名" width="220" align="center"></el-table-column>
@@ -93,7 +93,18 @@ export default {
 @import "../style/mixin.less";
 .table_container {
   margin: 20px;
-  border: 1px solid #dfe6ec;
+}
+.el-table--border th,
+.el-table--border td {
+  border-right: none;
+}
+.el-table--border th {
+  background-color: #eef1f6;
+  color: #333;
+}
+.el-table td,
+.el-table th {
+  padding: 10px 0;
 }
 .el-pagination {
   padding: 2px 30px;

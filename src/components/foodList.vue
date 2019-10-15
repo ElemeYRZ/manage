@@ -193,7 +193,7 @@ export default {
 }
 .el-table td,
 .el-table th {
-  padding: 8px 0;
+  padding: 10px 0;
 }
 .el-pagination {
   padding: 2px 30px;

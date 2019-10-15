@@ -2,7 +2,7 @@
   <div>
     <head-top></head-top>
     <div class="table_container">
-      <el-table :data="tableData" style="width: 100%">
+      <el-table :data="tableData" style="width: 100%" border>
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
@@ -326,7 +326,7 @@ export default {
 <style lang="less">
 .table_container {
   margin: 30px;
-  border: 1px solid #dfe6ec;
+  // border: 1px solid #dfe6ec;
 }
 .demo-table-expand {
   font-size: 0;
@@ -346,8 +346,17 @@ export default {
 .el-table .cell {
   text-align: center;
 }
-.el-table th {
+.el-table--border th,
+.el-table--border td {
+  border-right: none;
+}
+.el-table--border th {
   background-color: #eef1f6;
+  color: #333;
+}
+.el-table td,
+.el-table th {
+  padding: 10px 0;
 }
 .el-pagination {
   padding: 2px 30px;
